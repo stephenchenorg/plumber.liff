@@ -79,6 +79,8 @@ async function fetchOrderHistory(userId) {
 
 // Display order history
 function displayOrderHistory(dispatchs) {
+    console.log('Dispatchs');
+    console.log(dispatchs);
     const orderList = document.getElementById('orderList');
     if (!dispatchs || dispatchs.length === 0) {
         orderList.innerHTML = '<li class="order-item">尚無派工記錄</li>';
