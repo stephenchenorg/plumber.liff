@@ -78,20 +78,20 @@ async function fetchOrderHistory(userId) {
 }
 
 // Display order history
-function displayOrderHistory(orders) {
+function displayOrderHistory(dispatchs) {
     const orderList = document.getElementById('orderList');
-    if (!orders || orders.length === 0) {
-        orderList.innerHTML = '<li class="order-item">尚無訂單記錄</li>';
+    if (!dispatchs || dispatchs.length === 0) {
+        orderList.innerHTML = '<li class="order-item">尚無派工記錄</li>';
         return;
     }
 
-    orderList.innerHTML = orders.map(order => `
+    orderList.innerHTML = dispatchs.map(dispatch => `
         <li class="order-item">
-            <h3>訂單編號: ${order.order_number}</h3>
+            <h3>派工編號: ${dispatch.inquiry_key}</h3>
             <div class="order-details">
-                <p>日期: ${new Date(order.created_at).toLocaleDateString()}</p>
-                <p>狀態: ${order.status}</p>
-                <p>總金額: ${order.total_amount}</p>
+                <p>派工日期: ${new Date(dispatch.created_at).toLocaleDateString()}</p>
+                <p>派工狀態: ${dispatch.status}</p>
+                <p>派工地址: ${dispatch.address}</p>
             </div>
         </li>
     `).join('');
