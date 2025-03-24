@@ -20,7 +20,7 @@ async function getUserProfile() {
         const profile = await liff.getProfile();
         document.getElementById('profileImage').src = profile.pictureUrl;
         document.getElementById('profileName').textContent = profile.displayName;
-        document.getElementById('profileStatus').textContent = 'Logged in successfully';
+        // document.getElementById('profileStatus').textContent = 'Logged in successfully';
     } catch (err) {
         console.error('Error getting profile:', err);
         document.getElementById('profileStatus').textContent = 'Error getting profile';
@@ -115,7 +115,7 @@ async function submitUserData() {
         // Update success section with profile info
         document.getElementById('profileImageSuccess').src = profile.pictureUrl;
         document.getElementById('profileNameSuccess').textContent = profile.displayName;
-        document.getElementById('profileStatusSuccess').textContent = '會員綁定成功';
+        document.getElementById('profileStatusSuccess').textContent = '等級：' . data.level_label;
 
         // Switch to user profile section
         switchSections('phoneBindingSection', 'userProfileSection');
