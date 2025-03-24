@@ -110,7 +110,7 @@ async function submitUserData() {
         }
 
         let data = await response.json();
-        data = JSON.parse(data).data;
+        data = data.data;
         console.log('Data sent successfully:', data);
 
         // Update success section with profile info
