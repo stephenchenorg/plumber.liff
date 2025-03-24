@@ -109,7 +109,7 @@ async function submitUserData() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        let data = await response.json()['data'];
+        let data = await response.json();
         data = JSON.parse(data).data;
         console.log('Data sent successfully:', data);
 
