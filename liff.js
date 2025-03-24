@@ -79,28 +79,38 @@ async function fetchOrderHistory(userId) {
 
 // Display order history
 function displayDispatchesHistory(dispatches) {
-
     const orderList = document.getElementById('orderList');
     if (!dispatches || dispatches.length === 0) {
         orderList.innerHTML = '<li class="order-item">尚無派工記錄</li>';
         return;
     }
 
-    dispatches.map(dispatch => {
-        console.log(dispatch.inquiry_key)
-    });
-    console.log(orderList);
-    // <p>派工日期: ${new Date(dispatch.created_at).toLocaleDateString()}</p>
     orderList.innerHTML = dispatches.map(dispatch => `
         <li class="order-item">
             <h3>派工編號: ${dispatch.inquiry_key}</h3>
             <div class="order-details">
-               
+                <p>派工日期: ${new Date(dispatch.created_at).toLocaleDateString()}</p>
                 <p>派工狀態: ${dispatch.status}</p>
                 <p>派工地址: ${dispatch.address}</p>
             </div>
         </li>
     `).join('');
+
+    // Add click handlers to order items
+    const orderItems = document.querySelectorAll('.order-item');
+    orderItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Toggle active class on clicked item
+            item.classList.toggle('active');
+            
+            // Close other items
+            orderItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+        });
+    });
 }
 
 // Submit user data
