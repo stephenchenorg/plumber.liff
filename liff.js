@@ -51,7 +51,7 @@ async function submitUserData() {
         const profile = await liff.getProfile();
         const response = await fetch('https://adminpanel.yijia.services/api/sync/line/user', {
             method: 'POST',
-            mode: 'no-cors',
+            // mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
