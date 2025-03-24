@@ -18,7 +18,7 @@ liff.init({ liffId: "YOUR_LIFF_ID" })
 async function sendLoginWebhook() {
     try {
         const profile = await liff.getProfile();
-        const response = await fetch('https://adminpanel.yijia.services/api/webhook/line', {
+        const response = await fetch('https://adminpanel.yijia.services/api/sync/line/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
