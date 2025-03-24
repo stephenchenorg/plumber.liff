@@ -1,7 +1,6 @@
 // Initialize LIFF
 liff.init({liffId: "1656789862-en7LEa1L"})
     .then(async () => {
-        console.log('LIFF initialized');
         // Check if user is logged in
         if (!liff.isLoggedIn()) {
             liff.login();
@@ -9,7 +8,7 @@ liff.init({liffId: "1656789862-en7LEa1L"})
             // User is already logged in, get profile
             await getUserProfile();
         }
-        
+
         // Initialize FAQ accordion functionality
         initializeFAQAccordion();
     })
@@ -20,7 +19,7 @@ liff.init({liffId: "1656789862-en7LEa1L"})
 // Initialize FAQ accordion
 function initializeFAQAccordion() {
     const faqItems = document.querySelectorAll('.order-item');
-    
+
     faqItems.forEach(item => {
         item.addEventListener('click', () => {
             // Close all other items
@@ -29,7 +28,7 @@ function initializeFAQAccordion() {
                     otherItem.classList.remove('active');
                 }
             });
-            
+
             // Toggle current item
             item.classList.toggle('active');
         });
@@ -87,7 +86,9 @@ function displayDispatchesHistory(dispatches) {
         return;
     }
 
-    dispatches.map(dispatch => {console.log(dispatch.inquiry_key)});
+    dispatches.map(dispatch => {
+        console.log(dispatch.inquiry_key)
+    });
     console.log(orderList);
     // <p>派工日期: ${new Date(dispatch.created_at).toLocaleDateString()}</p>
     orderList.innerHTML = dispatches.map(dispatch => `
@@ -154,26 +155,5 @@ async function submitUserData() {
     } catch (err) {
         console.error('Error submitting data:', err);
         document.getElementById('profileStatus').textContent = '綁定失敗，請稍後再試';
-    }
-}
-
-// Send message
-async function sendMessage() {
-    try {
-        if (!liff.isInClient()) {
-            alert('This feature is only available in LINE app');
-            return;
-        }
-
-        await liff.sendMessages([
-            {
-                type: 'text',
-                text: 'Hello from LIFF app!'
-            }
-        ]);
-        document.getElementById('profileStatus').textContent = 'Message sent successfully';
-    } catch (err) {
-        console.error('Error sending message:', err);
-        document.getElementById('profileStatus').textContent = 'Error sending message';
     }
 }
