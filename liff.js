@@ -109,7 +109,7 @@ async function submitUserData() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json().data;
+        const data = await response.json();
         console.log('Data sent successfully:', data);
 
         // Update success section with profile info
