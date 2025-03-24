@@ -9,10 +9,32 @@ liff.init({liffId: "1656789862-en7LEa1L"})
             // User is already logged in, get profile
             await getUserProfile();
         }
+        
+        // Initialize FAQ accordion functionality
+        initializeFAQAccordion();
     })
     .catch((err) => {
         console.error('LIFF initialization failed', err);
     });
+
+// Initialize FAQ accordion
+function initializeFAQAccordion() {
+    const faqItems = document.querySelectorAll('.order-item');
+    
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+    });
+}
 
 // Get user profile
 async function getUserProfile() {
@@ -47,8 +69,8 @@ async function fetchOrderHistory(userId) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const orders = await response.json();
-        displayOrderHistory(orders);
+        let orders = await response.json();
+        displayOrderHistory(orders.dispatch);
     } catch (err) {
         console.error('Error fetching order history:', err);
         document.getElementById('orderList').innerHTML = '<li class="order-item">無法載入訂單歷史</li>';
