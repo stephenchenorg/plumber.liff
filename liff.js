@@ -69,8 +69,9 @@ async function fetchOrderHistory(userId) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        let orders = await response.json();
-        displayOrderHistory(orders.dispatch);
+        let data = await response.json();
+        data = data.data;
+        displayDispatchesHistory(data.dispatch);
     } catch (err) {
         console.error('Error fetching order history:', err);
         document.getElementById('orderList').innerHTML = '<li class="order-item">無法載入訂單歷史</li>';
@@ -78,16 +79,16 @@ async function fetchOrderHistory(userId) {
 }
 
 // Display order history
-function displayOrderHistory(dispatchs) {
-    console.log('Dispatchs');
-    console.log(dispatchs);
+function displayDispatchesHistory(dispatches) {
+    console.log('dispatches');
+    console.log(dispatches);
     const orderList = document.getElementById('orderList');
-    if (!dispatchs || dispatchs.length === 0) {
+    if (!dispatches || dispatches.length === 0) {
         orderList.innerHTML = '<li class="order-item">尚無派工記錄</li>';
         return;
     }
 
-    orderList.innerHTML = dispatchs.map(dispatch => `
+    orderList.innerHTML = dispatches.map(dispatch => `
         <li class="order-item">
             <h3>派工編號: ${dispatch.inquiry_key}</h3>
             <div class="order-details">
