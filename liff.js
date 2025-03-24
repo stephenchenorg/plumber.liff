@@ -43,7 +43,7 @@ function switchSections(fromSection, toSection) {
 // Fetch order history
 async function fetchOrderHistory(userId) {
     try {
-        const response = await fetch(`https://adminpanel.yijia.services/api/orders/${userId}`);
+        const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -117,7 +117,7 @@ async function submitUserData() {
         // Update success section with profile info
         document.getElementById('profileImageSuccess').src = profile.pictureUrl;
         document.getElementById('profileNameSuccess').textContent = profile.displayName;
-        document.getElementById('profileStatusSuccess').textContent = '等級' + levelText;
+        document.getElementById('profileStatusSuccess').textContent = '等級：' + levelText;
 
         // Switch to user profile section
         switchSections('phoneBindingSection', 'userProfileSection');
