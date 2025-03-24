@@ -59,18 +59,47 @@
             color: #666;
             font-size: 14px;
         }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #00B900;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>welcome to </h1>
+        <h1>Welcome to LINE LIFF App</h1>
         <div class="profile-section">
             <img id="profileImage" class="profile-image" src="" alt="Profile">
             <div id="profileName" class="profile-name"></div>
             <div id="profileStatus" class="profile-status"></div>
         </div>
-<!--        <button class="button" onclick="getUserProfile()">Get User Profile</button>-->
-<!--        <button class="button" onclick="sendMessage()">Send Message</button>-->
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
+            <div id="phoneError" class="error-message">Please enter a valid phone number</div>
+        </div>
+        <button class="button" onclick="submitUserData()">Submit Information</button>
     </div>
     <script src="liff.js"></script>
 </body>
