@@ -109,13 +109,14 @@ async function submitUserData() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        let data = await response.json()['data'];
+        data = JSON.parse(data).data;
         console.log('Data sent successfully:', data);
 
         // Update success section with profile info
         document.getElementById('profileImageSuccess').src = profile.pictureUrl;
         document.getElementById('profileNameSuccess').textContent = profile.displayName;
-        document.getElementById('profileStatusSuccess').textContent = '等級：'.data.level_label;
+        document.getElementById('profileStatusSuccess').textContent = '等級：'.data['level_label'];
 
         // Switch to user profile section
         switchSections('phoneBindingSection', 'userProfileSection');
