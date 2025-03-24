@@ -111,12 +111,13 @@ async function submitUserData() {
 
         let data = await response.json();
         data = data.data;
+        let levelText = data.level_label;
         console.log('Data sent successfully:', data);
 
         // Update success section with profile info
         document.getElementById('profileImageSuccess').src = profile.pictureUrl;
         document.getElementById('profileNameSuccess').textContent = profile.displayName;
-        document.getElementById('profileStatusSuccess').textContent = '等級：'.data['level_label'];
+        document.getElementById('profileStatusSuccess').textContent = '等級' + levelText;
 
         // Switch to user profile section
         switchSections('phoneBindingSection', 'userProfileSection');
