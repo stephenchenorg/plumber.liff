@@ -54,7 +54,7 @@ MIT
 
 ### Deploy the app using 'Deploy to Netlify' button
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stephenchenorg/plumber.liff.git)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stephenchenorg/plumber.liff)
 
 1. Click **Deploy to Netlify** above.
 2. On the "Create New App" page in Netlify, fill in the required information.
