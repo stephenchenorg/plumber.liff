@@ -1,7 +1,7 @@
 // Initialize LIFF app
 async function initializeLiff() {
     try {
-        await liff.init({ liffId: "YOUR_LIFF_ID" });
+        await liff.init({ liffId: "1656789862-en7LEa1L" });
         if (!liff.isLoggedIn()) {
             liff.login();
         } else {
@@ -192,24 +192,3 @@ async function submitUserData() {
         document.getElementById('profileStatus').textContent = '綁定失敗，請稍後再試';
     }
 }
-
-// Send message
-async function sendMessage() {
-    try {
-        if (!liff.isInClient()) {
-            alert('This feature is only available in LINE app');
-            return;
-        }
-
-        await liff.sendMessages([
-            {
-                type: 'text',
-                text: 'Hello from LIFF app!'
-            }
-        ]);
-        document.getElementById('profileStatus').textContent = 'Message sent successfully';
-    } catch (err) {
-        console.error('Error sending message:', err);
-        document.getElementById('profileStatus').textContent = 'Error sending message';
-    }
-} 
