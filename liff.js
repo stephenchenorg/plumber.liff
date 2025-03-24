@@ -23,7 +23,7 @@ async function getUserProfile() {
         // document.getElementById('profileStatus').textContent = 'Logged in successfully';
     } catch (err) {
         console.error('Error getting profile:', err);
-        document.getElementById('profileStatus').textContent = 'Error getting profile';
+        document.getElementById('profileStatus').textContent = '取得 LINE 個人資料失敗';
     }
 }
 
@@ -109,13 +109,13 @@ async function submitUserData() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = await response.json().data;
         console.log('Data sent successfully:', data);
 
         // Update success section with profile info
         document.getElementById('profileImageSuccess').src = profile.pictureUrl;
         document.getElementById('profileNameSuccess').textContent = profile.displayName;
-        document.getElementById('profileStatusSuccess').textContent = '等級：' . data.level_label;
+        document.getElementById('profileStatusSuccess').textContent = '等級：'.data.level_label;
 
         // Switch to user profile section
         switchSections('phoneBindingSection', 'userProfileSection');
