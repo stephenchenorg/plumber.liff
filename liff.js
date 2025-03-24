@@ -1,31 +1,72 @@
-// Initialize LIFF
-liff.init({liffId: "1656789862-en7LEa1L"})
-    .then(async () => {
-        console.log('LIFF initialized');
-        // Check if user is logged in
+// Initialize LIFF app
+async function initializeLiff() {
+    try {
+        await liff.init({ liffId: "YOUR_LIFF_ID" });
         if (!liff.isLoggedIn()) {
             liff.login();
         } else {
-            // User is already logged in, get profile
-            await getUserProfile();
+            displayProfile();
         }
-    })
-    .catch((err) => {
-        console.error('LIFF initialization failed', err);
-    });
+    } catch (err) {
+        console.error('Error initializing LIFF:', err);
+    }
+}
 
-// Get user profile
-async function getUserProfile() {
+// Display user profile
+async function displayProfile() {
     try {
         const profile = await liff.getProfile();
         document.getElementById('profileImage').src = profile.pictureUrl;
         document.getElementById('profileName').textContent = profile.displayName;
-        // document.getElementById('profileStatus').textContent = 'Logged in successfully';
+        document.getElementById('profileStatus').textContent = '已登入';
     } catch (err) {
         console.error('Error getting profile:', err);
-        document.getElementById('profileStatus').textContent = '取得 LINE 個人資料失敗';
     }
 }
+
+// Handle category item clicks
+document.querySelectorAll('.category-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const action = this.querySelector('.category-text').textContent;
+        handleTransactionAction(action);
+    });
+});
+
+// Handle different transaction actions
+function handleTransactionAction(action) {
+    switch(action) {
+        case '臺幣轉帳':
+            // Handle transfer action
+            liff.openWindow({
+                url: 'YOUR_TRANSFER_URL',
+                external: true
+            });
+            break;
+        case '臺幣帳戶明細':
+            // Handle account details action
+            showAccountDetails();
+            break;
+        case '預約轉帳查詢':
+            // Handle scheduled transfers action
+            showScheduledTransfers();
+            break;
+        case 'App 轉帳紀錄':
+            // Handle transfer history action
+            showTransferHistory();
+            break;
+    }
+}
+
+// Handle logout
+function handleLogout() {
+    if (liff.isLoggedIn()) {
+        liff.logout();
+        window.location.reload();
+    }
+}
+
+// Initialize the app when the page loads
+window.onload = initializeLiff;
 
 // Validate phone number
 function validatePhoneNumber(phone) {
@@ -64,15 +105,37 @@ function displayOrderHistory(orders) {
     }
 
     orderList.innerHTML = orders.map(order => `
-        <li class="order-item">
-            <h3>訂單編號: ${order.order_number}</h3>
+        <li class="order-item" onclick="toggleOrder(this)">
+            <div class="order-header">
+                <h3>訂單編號: ${order.order_number}</h3>
+                <svg class="order-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </div>
             <div class="order-details">
                 <p>日期: ${new Date(order.created_at).toLocaleDateString()}</p>
-                <p>狀態: ${order.status}</p>
-                <p>總金額: ${order.total_amount}</p>
+                <p>狀態: <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span></p>
+                <p>總金額: <span class="order-amount">${order.total_amount}</span></p>
+                ${order.description ? `<p>描述: ${order.description}</p>` : ''}
+                ${order.address ? `<p>地址: ${order.address}</p>` : ''}
+                ${order.notes ? `<p>備註: ${order.notes}</p>` : ''}
             </div>
         </li>
     `).join('');
+}
+
+// Toggle order details
+function toggleOrder(element) {
+    // Close all other orders
+    const allOrders = document.querySelectorAll('.order-item');
+    allOrders.forEach(order => {
+        if (order !== element) {
+            order.classList.remove('active');
+        }
+    });
+    
+    // Toggle current order
+    element.classList.toggle('active');
 }
 
 // Submit user data
