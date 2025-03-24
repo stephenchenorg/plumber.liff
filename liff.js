@@ -88,6 +88,8 @@ function displayDispatchesHistory(dispatches) {
         return;
     }
 
+    dispatches.map(dispatch => {console.log(dispatch.inquiry_key)});
+
     orderList.innerHTML = dispatches.map(dispatch => `
         <li class="order-item">
             <h3>派工編號: ${dispatch.inquiry_key}</h3>
