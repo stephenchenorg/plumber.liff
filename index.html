@@ -84,21 +84,73 @@
             margin-top: 5px;
             display: none;
         }
+        .order-history {
+            margin-top: 30px;
+            display: none;
+        }
+        .order-history h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .order-list {
+            list-style: none;
+            padding: 0;
+        }
+        .order-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #00B900;
+        }
+        .order-item h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .order-details {
+            color: #666;
+            font-size: 14px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="profile-section">
-            <img id="profileImage" class="profile-image" src="" alt="Profile">
-            <div id="profileName" class="profile-name"></div>
-            <div id="profileStatus" class="profile-status"></div>
+        <!-- Phone Binding Section -->
+        <div id="phoneBindingSection" class="section active">
+            <div class="profile-section">
+                <img id="profileImage" class="profile-image" src="" alt="Profile">
+                <div id="profileName" class="profile-name"></div>
+                <div id="profileStatus" class="profile-status"></div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">請輸入手機號碼進行會員綁定</label>
+                <input type="tel" id="phoneNumber" required>
+                <div id="phoneError" class="error-message">請輸入正確的格式</div>
+            </div>
+            <button class="button" onclick="submitUserData()">綁定</button>
         </div>
-        <div class="form-group">
-            <label for="phoneNumber">請輸入手機號碼進行會員綁定</label>
-            <input type="tel" id="phoneNumber" required>
-            <div id="phoneError" class="error-message">請輸入正確的格式</div>
+
+        <!-- User Profile and Order History Section -->
+        <div id="userProfileSection" class="section">
+            <div class="profile-section">
+                <img id="profileImageSuccess" class="profile-image" src="" alt="Profile">
+                <div id="profileNameSuccess" class="profile-name"></div>
+                <div id="profileStatusSuccess" class="profile-status"></div>
+            </div>
+            <div class="order-history">
+                <h2>派工歷史</h2>
+                <ul id="orderList" class="order-list">
+                    <!-- Orders will be populated here -->
+                </ul>
+            </div>
         </div>
-        <button class="button" onclick="submitUserData()">綁定</button>
     </div>
     <script src="liff.js"></script>
 </body>

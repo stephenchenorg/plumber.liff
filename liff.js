@@ -34,6 +34,47 @@ function validatePhoneNumber(phone) {
     return phoneRegex.test(phone);
 }
 
+// Switch sections
+function switchSections(fromSection, toSection) {
+    document.getElementById(fromSection).classList.remove('active');
+    document.getElementById(toSection).classList.add('active');
+}
+
+// Fetch order history
+async function fetchOrderHistory(userId) {
+    try {
+        const response = await fetch(`https://adminpanel.yijia.services/api/orders/${userId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const orders = await response.json();
+        displayOrderHistory(orders);
+    } catch (err) {
+        console.error('Error fetching order history:', err);
+        document.getElementById('orderList').innerHTML = '<li class="order-item">無法載入訂單歷史</li>';
+    }
+}
+
+// Display order history
+function displayOrderHistory(orders) {
+    const orderList = document.getElementById('orderList');
+    if (!orders || orders.length === 0) {
+        orderList.innerHTML = '<li class="order-item">尚無訂單記錄</li>';
+        return;
+    }
+
+    orderList.innerHTML = orders.map(order => `
+        <li class="order-item">
+            <h3>訂單編號: ${order.order_number}</h3>
+            <div class="order-details">
+                <p>日期: ${new Date(order.created_at).toLocaleDateString()}</p>
+                <p>狀態: ${order.status}</p>
+                <p>總金額: ${order.total_amount}</p>
+            </div>
+        </li>
+    `).join('');
+}
+
 // Submit user data
 async function submitUserData() {
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
@@ -51,7 +92,6 @@ async function submitUserData() {
         const profile = await liff.getProfile();
         const response = await fetch('https://adminpanel.yijia.services/api/sync/line/user', {
             method: 'POST',
-            // mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -71,13 +111,20 @@ async function submitUserData() {
 
         const data = await response.json();
         console.log('Data sent successfully:', data);
-        document.getElementById('profileStatus').textContent = 'Information submitted successfully';
 
-        // Clear the phone input
-        document.getElementById('phoneNumber').value = '';
+        // Update success section with profile info
+        document.getElementById('profileImageSuccess').src = profile.pictureUrl;
+        document.getElementById('profileNameSuccess').textContent = profile.displayName;
+        document.getElementById('profileStatusSuccess').textContent = '會員綁定成功';
+
+        // Switch to user profile section
+        switchSections('phoneBindingSection', 'userProfileSection');
+
+        // Fetch and display order history
+        await fetchOrderHistory(profile.userId);
     } catch (err) {
         console.error('Error submitting data:', err);
-        document.getElementById('profileStatus').textContent = 'Error submitting information';
+        document.getElementById('profileStatus').textContent = '綁定失敗，請稍後再試';
     }
 }
 
