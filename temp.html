@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <title>億家水電修繕會員頁面</title>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      color: #00B900;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .button {
+      background-color: #00B900;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      transition: background-color 0.3s;
+    }
+    
+    .button:hover {
+      background-color: #009900;
+    }
+    
+    .profile-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    
+    .profile-name {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .profile-status {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #00B900;
+    }
+    
+    .error-message {
+      color: #dc3545;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    .order-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .order-item {
+      background-color: #f8f9fa;
+      padding: 15px 20px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .order-item:hover {
+      background-color: #f0f0f0;
+    }
+    
+    .order-item h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .order-details {
+      display: none;
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid #eee;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .order-details p {
+      margin: 8px 0;
+      line-height: 1.4;
+    }
+    
+    .order-item.active .order-details {
+      display: block;
+    }
+    
+    .order-history {
+      margin-top: 30px;
+      display: block;
+    }
+    
+    .order-history h2 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 16px;
+      color: #333;
+      padding: 0;
+    }
+    
+    .faq-arrow {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-arrow::after {
+      content: "›";
+      display: inline-block;
+      font-size: 20px;
+      transform: rotate(90deg);
+      transition: transform 0.3s ease;
+    }
+    
+    .order-item.active .faq-arrow::after {
+      transform: rotate(270deg);
+    }
+    
+    .order-item.active .faq-answer {
+      max-height: 500px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+    
+    .section {
+      display: none;
+    }
+    
+    .section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Phone Binding Section -->
+  <div id="phoneBindingSection" class="section active">
+    <div class="profile-section">
+      <img id="profileImage" class="profile-image" src="" alt="Profile">
+      <div id="profileName" class="profile-name"></div>
+      <!--                <div id="profileStatus" class="profile-status"></div>-->
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">請輸入手機號碼進行會員綁定</label>
+      <input type="tel" id="phoneNumber" required>
+      <div id="phoneError" class="error-message">請輸入正確的格式</div>
+    </div>
+    <button class="button" onclick="submitUserData()">會員綁定</button>
+  </div>
+  
+  <!-- User Profile and Order History Section -->
+  <div id="userProfileSection" class="section">
+    <div class="profile-section">
+      <img id="profileImageSuccess" class="profile-image" src="" alt="Profile">
+      <div id="profileNameSuccess" class="profile-name"></div>
+      <div id="profileStatusSuccess" class="profile-status"></div>
+    </div>
+    <div class="order-history">
+      <h2>派工歷史</h2>
+      <ul id="orderList" class="order-list">
+      
+      </ul>
+    </div>
+  </div>
+</div>
+<script src="liff.js"></script>
+</body>
+</html>

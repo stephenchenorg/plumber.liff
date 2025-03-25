@@ -7,234 +7,242 @@
     <title>億家水電修繕會員頁面</title>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #00B900;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .button {
-            background-color: #00B900;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-            transition: background-color 0.3s;
-        }
-
-        .button:hover {
-            background-color: #009900;
-        }
-
-        .profile-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .profile-name {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .profile-status {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #00B900;
-        }
-
-        .error-message {
-            color: #dc3545;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .order-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .order-item {
-            background-color: #f8f9fa;
-            padding: 15px 20px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .order-item:hover {
-            background-color: #f0f0f0;
-        }
-
-        .order-item h3 {
-            margin: 0;
-            font-size: 16px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .order-details {
-            display: none;
-            padding-top: 12px;
-            margin-top: 12px;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .order-details p {
-            margin: 8px 0;
-            line-height: 1.4;
-        }
-
-        .order-item.active .order-details {
-            display: block;
-        }
-
-        .order-history {
-            margin-top: 30px;
-            display: block;
-        }
-
-        .order-history h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: left;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            font-size: 16px;
-            color: #333;
-            padding: 0;
-        }
-
-        .faq-arrow {
-            width: 24px;
-            height: 24px;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-arrow::after {
-            content: "›";
-            display: inline-block;
-            font-size: 20px;
-            transform: rotate(90deg);
-            transition: transform 0.3s ease;
-        }
-
-        .order-item.active .faq-arrow::after {
-            transform: rotate(270deg);
-        }
-
-        .order-item.active .faq-answer {
-            max-height: 500px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-<div class="container">
-    <!-- Phone Binding Section -->
-    <div id="phoneBindingSection" class="section active">
-        <div class="profile-section">
-            <img id="profileImage" class="profile-image" src="" alt="Profile">
-            <div id="profileName" class="profile-name"></div>
-            <!--                <div id="profileStatus" class="profile-status"></div>-->
+<body class="bg-louisaGray min-h-screen">
+<div class="p-4 w-[500px]">
+    <!-- 黑卡卡片 -->
+    <div class=" text-white rounded-xl shadow-lg px-4 py-4 "
+         style="background: linear-gradient(to right, #000000, #434343);">
+        <div class="flex justify-end items-center">
+            <h1 class="text-[28px] font-semibold">億家水電</h1>
         </div>
-        <div class="form-group">
-            <label for="phoneNumber">請輸入手機號碼進行會員綁定</label>
-            <input type="tel" id="phoneNumber" required>
-            <div id="phoneError" class="error-message">請輸入正確的格式</div>
+        <div class="flex justify-start items-center h-auto">
+            <img src="http://127.0.0.1:8000/storage/images/logo_removebg.png" alt="億家水電修繕承包工程後台">
         </div>
-        <button class="button" onclick="submitUserData()">會員綁定</button>
+        <div class="mb-2">
+            <p class="tracking-widest text-[20px] pl-2">174290768379147</p>
+        </div>
+        <div class="flex justify-content-start text-sm w-full">
+            <div class="w-full">
+                <p class="text-[18px] mb-2">Card Holder</p>
+                <p class="font-bold text-[20px]">xxx</p>
+            </div>
+            <div class="w-full text-right">
+                <p class="text-[18px] mb-2">Points</p>
+                <p class="font-bold text-[20px]">5</p>
+            </div>
+            <div class="w-full text-left">
+            </div>
+        </div>
+        <div class="w-full text-right text-[12px]">
+            <p>DISCOUNT VIP CARD</p>
+        </div>
     </div>
+    <br>
+    <p class="text-[20px]">派工單</p>
     
-    <!-- User Profile and Order History Section -->
-    <div id="userProfileSection" class="section">
-        <div class="profile-section">
-            <img id="profileImageSuccess" class="profile-image" src="" alt="Profile">
-            <div id="profileNameSuccess" class="profile-name"></div>
-            <div id="profileStatusSuccess" class="profile-status"></div>
+    <!-- 折疊式選單 -->
+    <div class="my-2" x-data="{ open: false }">
+        <!-- 切換按鈕 -->
+        <button
+                @click="open = !open"
+                class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
+        >
+            <span>７８７９８７９８</span>
+            
+            <!-- Chevron Icon，會根據 open 狀態旋轉 -->
+            <svg
+                    :class="{ 'rotate-180': open }"
+                    class="w-5 h-5 transform transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+        
+        <!-- 收合區塊：使用 max-height 轉場動畫 -->
+        <div
+                x-show="open"
+                x-transition:enter="transition-all duration-500 ease-in-out"
+                x-transition:enter-start="max-h-0 opacity-0"
+                x-transition:enter-end="max-h-[1000px] opacity-100"
+                x-transition:leave="transition-all duration-500 ease-in-out"
+                x-transition:leave-start="max-h-[1000px] opacity-100"
+                x-transition:leave-end="max-h-0 opacity-0"
+                class="overflow-hidden border-2 border-[#007BC2] rounded-b-lg mb-2"
+        >
+            <ul class="p-4">
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">詢價編號</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">所屬會員</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">維修內容</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">派工狀態</div>
+                    <p>已處理</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">總價</div>
+                    <p>$3,000</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">折扣</div>
+                    <p>$500</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">實收</div>
+                    <p>$2,500</p>
+                </li>
+            </ul>
         </div>
-        <div class="order-history">
-            <h2>派工歷史</h2>
-            <ul id="orderList" class="order-list">
-
+    </div>
+    <div class="my-2" x-data="{ open: false }">
+        <!-- 切換按鈕 -->
+        <!-- 按鈕含圖示 -->
+        <button
+                @click="open = !open"
+                class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
+        >
+            <span>７８７９８７９８</span>
+            
+            <!-- Chevron Icon，會根據 open 狀態旋轉 -->
+            <svg
+                    :class="{ 'rotate-180': open }"
+                    class="w-5 h-5 transform transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+        
+        <!-- 收合區塊：使用 max-height 轉場動畫 -->
+        <div
+                x-show="open"
+                x-transition:enter="transition-all duration-500 ease-in-out"
+                x-transition:enter-start="max-h-0 opacity-0"
+                x-transition:enter-end="max-h-[1000px] opacity-100"
+                x-transition:leave="transition-all duration-500 ease-in-out"
+                x-transition:leave-start="max-h-[1000px] opacity-100"
+                x-transition:leave-end="max-h-0 opacity-0"
+                class="overflow-hidden border-2 border-[#007BC2] rounded-b-lg mb-2"
+        >
+            <ul class="p-4">
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">詢價編號</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">所屬會員</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">維修內容</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">派工狀態</div>
+                    <p>已處理</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">總價</div>
+                    <p>$3,000</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">折扣</div>
+                    <p>$500</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">實收</div>
+                    <p>$2,500</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="my-2" x-data="{ open: false }">
+        <!-- 切換按鈕 -->
+        <!-- 按鈕含圖示 -->
+        <button
+                @click="open = !open"
+                class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
+        >
+            <span>７８７９８７９８</span>
+            
+            <!-- Chevron Icon，會根據 open 狀態旋轉 -->
+            <svg
+                    :class="{ 'rotate-180': open }"
+                    class="w-5 h-5 transform transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+        
+        <!-- 收合區塊：使用 max-height 轉場動畫 -->
+        <div
+                x-show="open"
+                x-transition:enter="transition-all duration-500 ease-in-out"
+                x-transition:enter-start="max-h-0 opacity-0"
+                x-transition:enter-end="max-h-[1000px] opacity-100"
+                x-transition:leave="transition-all duration-500 ease-in-out"
+                x-transition:leave-start="max-h-[1000px] opacity-100"
+                x-transition:leave-end="max-h-0 opacity-0"
+                class="overflow-hidden border-2 border-[#007BC2] rounded-b-lg mb-2"
+        >
+            <ul class="p-4">
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">詢價編號</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">所屬會員</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">維修內容</div>
+                    <p>DISP-13058</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">派工狀態</div>
+                    <p>已處理</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">總價</div>
+                    <p>$3,000</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">折扣</div>
+                    <p>$500</p>
+                </li>
+                <li class="w-full flex mb-2">
+                    <div class="w-[120px] mr-2">實收</div>
+                    <p>$2,500</p>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+</body>
 <script src="liff.js"></script>
 </body>
 </html> 
