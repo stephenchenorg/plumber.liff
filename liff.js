@@ -1,5 +1,5 @@
 // Initialize LIFF
-liff.init({liffId: "1656789862-en7LEa1L"})
+liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
         if (!liff.isLoggedIn()) {
