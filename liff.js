@@ -3,7 +3,7 @@ liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
         if (!liff.isLoggedIn()) {
-            liff.login();
+            // liff.login();
         } else {
             // User is already logged in, get profile
             await getUserProfile();
