@@ -9,9 +9,27 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
 <body class="bg-louisaGray min-h-screen">
-<div class="p-4 w-[500px]">
+
+<!-- Phone Binding Section -->
+<div id="phone-binding-section" class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="text-center mb-6">
+        <img id="profileImage" class="w-24 h-24 rounded-full mx-auto mb-3" src="" alt="Profile">
+        <div id="profileName" class="text-lg font-semibold text-gray-800"></div>
+    </div>
+    <div class="mb-6">
+        <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">請輸入手機號碼進行會員綁定</label>
+        <input type="tel" id="phoneNumber" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#007BC2] focus:ring-2 focus:ring-[#007BC2] focus:ring-opacity-50">
+        <div id="phoneError" class="text-red-500 text-sm mt-1 hidden">請輸入正確的格式</div>
+    </div>
+    <button onclick="submitUserData()"
+            class="w-full bg-[#007BC2] text-white py-3 px-4 rounded-lg hover:bg-[#0066a3] transition-colors duration-300 font-medium">
+        會員綁定
+    </button>
+</div>
+
+<div id="user-profile-section" class="p-4 w-[500px]">
     <!-- 黑卡卡片 -->
     <div class=" text-white rounded-xl shadow-lg px-4 py-4 "
          style="background: linear-gradient(to right, #000000, #434343);">
@@ -37,11 +55,11 @@
             </div>
         </div>
         <div class="w-full text-right text-[12px]">
-<!--            <p>DISCOUNT VIP CARD</p>-->
+            <!--            <p>DISCOUNT VIP CARD</p>-->
         </div>
     </div>
     <br>
-    <p class="text-[20px]">派工單</p>
+    <p class="text-[20px]">歷史派工單</p>
     
     <!-- 折疊式選單 -->
     <div class="my-2" x-data="{ open: false }">

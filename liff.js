@@ -158,7 +158,7 @@ async function submitUserData() {
         document.getElementById('profileStatusSuccess').textContent = '等級：' + levelText;
 
         // Switch to user profile section
-        switchSections('phoneBindingSection', 'userProfileSection');
+        switchSections('phone-binding-section', 'user-profile-section');
 
         // Fetch and display order history
         await fetchOrderHistory(profile.userId);
