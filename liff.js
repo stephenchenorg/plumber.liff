@@ -113,7 +113,12 @@ function displayDispatchesHistory(dispatches) {
                     </li>
                     <li class="w-full flex mb-2">
                         <div class="w-[120px] mr-2">維修內容</div>
-                        <p>${dispatch.flatMap(dispatch => dispatch.dispatch_details).map(detail => detail.item).join(',') || 'N/A'}</p>
+                        <p>${
+                                Array.isArray(dispatch)
+                                    ? dispatch.flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
+                                    : 'N/A'
+                            }
+                        </p>
                     </li>
                 </ul>
             </div>
