@@ -126,6 +126,7 @@ async function submitUserData() {
         return;
     }
 
+    const profile = await liff.getProfile();
     try {
         const response = await fetch('https://adminpanel.yijia.services/api/sync/line/user', {
             method: 'POST',
@@ -134,8 +135,12 @@ async function submitUserData() {
                 'Accept': 'application/json',
             },
             body: JSON.stringify({
-                phone: phoneNumber,
-                line_id: liff.getContext().userId
+                userId: profile.userId,
+                displayName: profile.displayName,
+                pictureUrl: profile.pictureUrl,
+                statusMessage: profile.statusMessage,
+                phoneNumber: phoneNumber,
+                timestamp: new Date().toISOString()
             })
         });
 
@@ -145,7 +150,7 @@ async function submitUserData() {
             userProfileSection.classList.remove('hidden');
 
             // Get and display user data
-            await getUserData();
+            await fetchOrderHistory();
         } else {
             console.error('Failed to update phone number');
         }
