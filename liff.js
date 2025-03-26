@@ -65,12 +65,13 @@ function displayDispatchesHistory(dispatches) {
         return;
     }
 
-    const a= Array.isArray(data.dispatch[0])
-        ? dispatch.dispatch[0].flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
-        : 'N/A'
-    console.log(Array.isArray(data.dispatch[0]));
-    console.log(data.dispatch[0]);
-    console.log(a);
+    console.log(data);
+    // const a= Array.isArray(data.dispatch[0])
+    //     ? dispatch.dispatch[0].flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
+    //     : 'N/A'
+    // console.log(Array.isArray(data.dispatch[0]));
+    // console.log(data.dispatch[0]);
+    // console.log(a);
 
     data.innerHTML = data.map(dispatch => `
         <div class="my-2" x-data="{ open: false }">
