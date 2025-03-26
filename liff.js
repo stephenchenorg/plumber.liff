@@ -119,9 +119,9 @@ function displayDispatchesHistory(dispatches) {
                         <div class="w-[120px] mr-2">總價</div>
                         <p>${dispatch.amount_total || 'N/A'}</p>
                     </li>
-                    <li class="w-full flex mb-2 w-[120px]">
+                    <li class="w-full flex mb-2">
                         <div class="w-[120px] mr-2">維修內容</div>
-                        <p>${dispatch.dispatch_details.map(detail => detail.item).join(', ') || 'N/A'}</p>
+                        <p class="flex-1">${dispatch.dispatch_details.map(detail => detail.item).join(', ') || 'N/A'}</p>
                     </li>
                 </ul>
             </div>
