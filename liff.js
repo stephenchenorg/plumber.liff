@@ -167,7 +167,6 @@ async function submitUserData() {
 
             let data = await response.json();
             data = data.data;
-            let levelText = data.level_label;
 
             document.getElementById('name').textContent = profile.displayName;
             document.getElementById('level').textContent = data.level_label;
