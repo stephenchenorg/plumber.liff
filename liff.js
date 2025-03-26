@@ -2,38 +2,17 @@
 liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
-        if (!liff.isLoggedIn()) {
-            liff.login();
-        } else {
-            // User is already logged in, get profile
-            await getUserProfile();
-        }
-
-        // Initialize FAQ accordion functionality
-        initializeFAQAccordion();
+        fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
+        // if (!liff.isLoggedIn()) {
+        //     liff.login();
+        // } else {
+        //     // User is already logged in, get profile
+        //     await getUserProfile();
+        // }
     })
     .catch((err) => {
         console.error('LIFF initialization failed', err);
     });
-
-// Initialize FAQ accordion
-function initializeFAQAccordion() {
-    const faqItems = document.querySelectorAll('.order-item');
-
-    faqItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Close all other items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-
-            // Toggle current item
-            item.classList.toggle('active');
-        });
-    });
-}
 
 // Get user profile
 async function getUserProfile() {
@@ -63,7 +42,6 @@ function switchSections(fromSection, toSection) {
 
 // Fetch order history
 async function fetchOrderHistory(userId) {
-    console.log('userId ', userId);
     try {
         const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
         if (!response.ok) {
@@ -93,7 +71,7 @@ function displayDispatchesHistory(dispatches) {
                 @click="open = !open"
                 class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
             >
-                <span>${dispatch.inquiry_key}</span>
+                <span>${dispatch.inquiry_key} ${dispatch.created_at}</span>
                 
                 <!-- Chevron Icon -->
                 <svg
@@ -126,28 +104,16 @@ function displayDispatchesHistory(dispatches) {
                         <p>${dispatch.inquiry_key}</p>
                     </li>
                     <li class="w-full flex mb-2">
-                        <div class="w-[120px] mr-2">所屬會員</div>
-                        <p>${dispatch.member_name || 'N/A'}</p>
-                    </li>
-                    <li class="w-full flex mb-2">
-                        <div class="w-[120px] mr-2">維修內容</div>
-                        <p>${dispatch.description || 'N/A'}</p>
-                    </li>
-                    <li class="w-full flex mb-2">
-                        <div class="w-[120px] mr-2">派工狀態</div>
-                        <p>${dispatch.status}</p>
+                        <div class="w-[120px] mr-2">地址</div>
+                        <p>${dispatch.address || 'N/A'}</p>
                     </li>
                     <li class="w-full flex mb-2">
                         <div class="w-[120px] mr-2">總價</div>
-                        <p>$${dispatch.total_price || '0'}</p>
+                        <p>${dispatch.amount_total || 'N/A'}</p>
                     </li>
                     <li class="w-full flex mb-2">
-                        <div class="w-[120px] mr-2">折扣</div>
-                        <p>$${dispatch.discount || '0'}</p>
-                    </li>
-                    <li class="w-full flex mb-2">
-                        <div class="w-[120px] mr-2">實收</div>
-                        <p>$${dispatch.final_price || '0'}</p>
+                        <div class="w-[120px] mr-2">維修內容</div>
+                        <p>${dispatch.flatMap(dispatch => dispatch.dispatch_details).map(detail => detail.item).join(',') || 'N/A'}</p>
                     </li>
                 </ul>
             </div>
