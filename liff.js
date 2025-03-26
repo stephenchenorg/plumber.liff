@@ -3,7 +3,7 @@ liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
         if (!liff.isLoggedIn()) {
-            // liff.login();
+            liff.login();
         } else {
             // User is already logged in, get profile
             await getUserProfile();
@@ -63,6 +63,7 @@ function switchSections(fromSection, toSection) {
 
 // Fetch order history
 async function fetchOrderHistory(userId) {
+    console.log('userId ', userId);
     try {
         const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
         if (!response.ok) {
@@ -81,36 +82,77 @@ async function fetchOrderHistory(userId) {
 function displayDispatchesHistory(dispatches) {
     const orderList = document.getElementById('orderList');
     if (!dispatches || dispatches.length === 0) {
-        orderList.innerHTML = '<li class="order-item">尚無派工記錄</li>';
+        orderList.innerHTML = '<div class="text-center py-4">尚無派工記錄</div>';
         return;
     }
 
     orderList.innerHTML = dispatches.map(dispatch => `
-        <li class="order-item">
-            <h3>派工編號: ${dispatch.inquiry_key}</h3>
-            <div class="order-details">
-                <p>派工日期: ${new Date(dispatch.created_at).toLocaleDateString()}</p>
-                <p>派工狀態: ${dispatch.status}</p>
-                <p>派工地址: ${dispatch.address}</p>
+        <div class="my-2" x-data="{ open: false }">
+            <!-- 切換按鈕 -->
+            <button
+                @click="open = !open"
+                class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
+            >
+                <span>${dispatch.inquiry_key}</span>
+                
+                <!-- Chevron Icon -->
+                <svg
+                    :class="{ 'rotate-180': open }"
+                    class="w-5 h-5 transform transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            
+            <!-- 收合區塊 -->
+            <div
+                x-show="open"
+                x-transition:enter="transition-all duration-500 ease-in-out"
+                x-transition:enter-start="max-h-0 opacity-0"
+                x-transition:enter-end="max-h-[1000px] opacity-100"
+                x-transition:leave="transition-all duration-500 ease-in-out"
+                x-transition:leave-start="max-h-[1000px] opacity-100"
+                x-transition:leave-end="max-h-0 opacity-0"
+                class="overflow-hidden border-2 border-[#007BC2] rounded-b-lg mb-2"
+            >
+                <ul class="p-4">
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">詢價編號</div>
+                        <p>${dispatch.inquiry_key}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">所屬會員</div>
+                        <p>${dispatch.member_name || 'N/A'}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">維修內容</div>
+                        <p>${dispatch.description || 'N/A'}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">派工狀態</div>
+                        <p>${dispatch.status}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">總價</div>
+                        <p>$${dispatch.total_price || '0'}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">折扣</div>
+                        <p>$${dispatch.discount || '0'}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">實收</div>
+                        <p>$${dispatch.final_price || '0'}</p>
+                    </li>
+                </ul>
             </div>
-        </li>
+        </div>
     `).join('');
-
-    // Add click handlers to order items
-    const orderItems = document.querySelectorAll('.order-item');
-    orderItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Toggle active class on clicked item
-            item.classList.toggle('active');
-
-            // Close other items
-            orderItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-        });
-    });
 }
 
 // Submit user data
