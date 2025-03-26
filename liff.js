@@ -102,7 +102,7 @@ function displayDispatchesHistory(dispatches) {
         item.addEventListener('click', () => {
             // Toggle active class on clicked item
             item.classList.toggle('active');
-            
+
             // Close other items
             orderItems.forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
@@ -115,55 +115,41 @@ function displayDispatchesHistory(dispatches) {
 
 // Submit user data
 async function submitUserData() {
-    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value;
     const phoneError = document.getElementById('phoneError');
+    const phoneBindingSection = document.getElementById('phone-binding-section');
+    const userProfileSection = document.getElementById('user-profile-section');
 
-    // Validate phone number
+    // Validate phone number format
     if (!validatePhoneNumber(phoneNumber)) {
-        phoneError.style.display = 'block';
+        phoneError.classList.remove('hidden');
         return;
     }
 
-    phoneError.style.display = 'none';
-
     try {
-        const profile = await liff.getProfile();
         const response = await fetch('https://adminpanel.yijia.services/api/sync/line/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify({
-                userId: profile.userId,
-                displayName: profile.displayName,
-                pictureUrl: profile.pictureUrl,
-                statusMessage: profile.statusMessage,
-                phoneNumber: phoneNumber,
-                timestamp: new Date().toISOString()
+                phone: phoneNumber,
+                line_id: liff.getContext().userId
             })
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {
+            // Hide phone binding section and show user profile section
+            phoneBindingSection.classList.add('hidden');
+            userProfileSection.classList.remove('hidden');
+
+            // Get and display user data
+            await getUserData();
+        } else {
+            console.error('Failed to update phone number');
         }
-
-        let data = await response.json();
-        data = data.data;
-        let levelText = data.level_label;
-        console.log('Data sent successfully:', data);
-
-        // Update success section with profile info
-        document.getElementById('profileImageSuccess').src = profile.pictureUrl;
-        document.getElementById('profileNameSuccess').textContent = profile.displayName;
-        document.getElementById('profileStatusSuccess').textContent = '等級：' + levelText;
-
-        // Switch to user profile section
-        switchSections('phone-binding-section', 'user-profile-section');
-
-        // Fetch and display order history
-        await fetchOrderHistory(profile.userId);
-    } catch (err) {
-        console.error('Error submitting data:', err);
-        document.getElementById('profileStatus').textContent = '綁定失敗，請稍後再試';
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
