@@ -13,6 +13,7 @@ liff.init({liffId: "2007125335-DGNa7lNX"})
     .catch((err) => {
         console.error('LIFF initialization failed', err);
     });
+fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
 
 // Get user profile
 async function getUserProfile() {
@@ -58,13 +59,20 @@ async function fetchOrderHistory(userId) {
 
 // Display order history
 function displayDispatchesHistory(dispatches) {
-    const orderList = document.getElementById('orderList');
+    const data = document.getElementById('dispatches');
     if (!dispatches || dispatches.length === 0) {
-        orderList.innerHTML = '<div class="text-center py-4">尚無派工記錄</div>';
+        data.innerHTML = '<div class="text-center py-4">尚無派工記錄</div>';
         return;
     }
 
-    orderList.innerHTML = dispatches.map(dispatch => `
+    const a= Array.isArray(data.dispatch[0])
+        ? dispatch.dispatch[0].flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
+        : 'N/A'
+    console.log(Array.isArray(data.dispatch[0]));
+    console.log(data.dispatch[0]);
+    console.log(a);
+
+    data.innerHTML = data.map(dispatch => `
         <div class="my-2" x-data="{ open: false }">
             <!-- 切換按鈕 -->
             <button
