@@ -2,18 +2,17 @@
 liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
-        fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
-        // if (!liff.isLoggedIn()) {
-        //     liff.login();
-        // } else {
-        //     // User is already logged in, get profile
-        //     await getUserProfile();
-        // }
+        // fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
+        if (!liff.isLoggedIn()) {
+            liff.login();
+        } else {
+            // User is already logged in, get profile
+            await getUserProfile();
+        }
     })
     .catch((err) => {
         console.error('LIFF initialization failed', err);
     });
-fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
 
 // Get user profile
 async function getUserProfile() {
@@ -44,7 +43,8 @@ function switchSections(fromSection, toSection) {
 // Fetch order history
 async function fetchOrderHistory(userId) {
     try {
-        const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
+        // const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
+        const response = await fetch('aa.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -65,22 +65,21 @@ function displayDispatchesHistory(dispatches) {
         return;
     }
 
-    console.log(data);
-    // const a= Array.isArray(data.dispatch[0])
-    //     ? dispatch.dispatch[0].flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
-    //     : 'N/A'
-    // console.log(Array.isArray(data.dispatch[0]));
-    // console.log(data.dispatch[0]);
+    const items = Array.isArray(dispatches)
+        ? dispatches.flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
+        : 'N/A'
+    console.log(Array.isArray(dispatches));
+    console.log(dispatches);
     // console.log(a);
 
-    data.innerHTML = data.map(dispatch => `
+    data.innerHTML = dispatches.map(dispatch => `
         <div class="my-2" x-data="{ open: false }">
             <!-- 切換按鈕 -->
             <button
                 @click="open = !open"
                 class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
             >
-                <span>${dispatch.inquiry_key} ${dispatch.created_at.slice(0, 10)}</span>
+                <span>單號：${dispatch.inquiry_key} | ${dispatch.created_at.slice(0, 10)}</span>
                 
                 <!-- Chevron Icon -->
                 <svg
@@ -120,14 +119,9 @@ function displayDispatchesHistory(dispatches) {
                         <div class="w-[120px] mr-2">總價</div>
                         <p>${dispatch.amount_total || 'N/A'}</p>
                     </li>
-                    <li class="w-full flex mb-2">
+                    <li class="w-full flex mb-2 w-[120px]">
                         <div class="w-[120px] mr-2">維修內容</div>
-                        <p>${
-                                Array.isArray(dispatch)
-                                    ? dispatch.flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
-                                    : 'N/A'
-                            }
-                        </p>
+                        <p>${dispatch.dispatch_details.map(detail => detail.item).join(', ') || 'N/A'}</p>
                     </li>
                 </ul>
             </div>
