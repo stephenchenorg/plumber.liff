@@ -79,7 +79,7 @@ function displayDispatchesHistory(dispatches) {
                 @click="open = !open"
                 class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
             >
-                <span>${dispatch.inquiry_key} ${dispatch.created_at}</span>
+                <span>${dispatch.inquiry_key} ${dispatch.created_at.slice(0, 10)}</span>
                 
                 <!-- Chevron Icon -->
                 <svg
