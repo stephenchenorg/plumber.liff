@@ -168,6 +168,10 @@ async function submitUserData() {
             let data = await response.json();
             data = data.data;
 
+
+            let timestamp = new Date(data.created_at).getTime();
+            const padded = String(timestamp).padStart(16, '0');
+            document.getElementById('holder').textContent = padded.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
             document.getElementById('name').textContent = profile.displayName;
             document.getElementById('level').textContent = data.level_label;
 
