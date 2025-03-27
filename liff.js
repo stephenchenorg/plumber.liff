@@ -3,6 +3,7 @@ liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
         // fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
+
         if (!liff.isLoggedIn()) {
             liff.login();
         } else {
