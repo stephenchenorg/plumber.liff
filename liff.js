@@ -2,13 +2,13 @@
 liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
-        fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
-        // if (!liff.isLoggedIn()) {
-        //     liff.login();
-        // } else {
-        //     // User is already logged in, get profile
-        //     await getUserProfile();
-        // }
+        // fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
+        if (!liff.isLoggedIn()) {
+            liff.login();
+        } else {
+            // User is already logged in, get profile
+            await getUserProfile();
+        }
     })
     .catch((err) => {
         console.error('LIFF initialization failed', err);
@@ -43,8 +43,8 @@ function switchSections(fromSection, toSection) {
 // Fetch order history
 async function fetchOrderHistory(userId) {
     try {
-        // const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
-        const response = await fetch('aa.json');
+        const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
+        // const response = await fetch('aa.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
