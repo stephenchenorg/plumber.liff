@@ -2,14 +2,14 @@
 liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
-        // fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
+        fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
 
-        if (!liff.isLoggedIn()) {
-            liff.login();
-        } else {
+        // if (!liff.isLoggedIn()) {
+            // liff.login();
+        // } else {
             // User is already logged in, get profile
-            await getUserProfile();
-        }
+            // await getUserProfile();
+        // }
     })
     .catch((err) => {
         console.error('LIFF initialization failed', err);
@@ -44,8 +44,8 @@ function switchSections(fromSection, toSection) {
 // Fetch order history
 async function fetchOrderHistory(userId) {
     try {
-        const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
-        // const response = await fetch('data.json');
+        // const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
+        const response = await fetch('data.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -65,13 +65,6 @@ function displayDispatchesHistory(dispatches) {
         data.innerHTML = '<div class="text-center py-4">尚無派工記錄</div>';
         return;
     }
-
-    const items = Array.isArray(dispatches)
-        ? dispatches.flatMap(d => d.dispatch_details || []).map(detail => detail.item).join(', ') || 'N/A'
-        : 'N/A'
-    console.log(Array.isArray(dispatches));
-    console.log(dispatches);
-    // console.log(a);
 
     data.innerHTML = dispatches.map(dispatch => `
         <div class="my-2" x-data="{ open: false }">
