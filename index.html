@@ -31,23 +31,45 @@
 
 <div id="user-profile-section" class="p-4 w-full">
     <!-- 黑卡卡片 -->
-    <div id="card" class="w-full h-[200px] rounded-2xl shadow-lg bg-gradient-to-r from-[#0072C6] to-[#005A9C] text-white p-6 flex flex-col justify-between">
-        <div class="flex justify-between items-center">
-            <div class="text-xl font-semibold">億家水電</div>
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/sim-card-chip.png" alt="Chip"
-                 class="w-10 h-10 opacity-80">
-        </div>
-        
-        <div id="holder" class="text-lg tracking-widest font-mono"></div>
-        
-        <div class="flex justify-between items-end text-sm">
-            <div>
-                <div class="uppercase text-xs opacity-70">Card Holder</div>
-                <div id="name" class="font-medium"></div>
+    <div class="relative w-full">
+        <!-- Card content -->
+        <div id="card" class="w-full h-[200px] rounded-2xl shadow-lg bg-gradient-to-r from-[#0072C6] to-[#005A9C] text-white p-6 flex flex-col justify-between relative overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 overflow-hidden">
+                <!-- First wave -->
+                <div class="absolute w-[200%] h-full"
+                     style="background: linear-gradient(45deg, #0072C6, #0088E0, #0072C6);
+                            transform: translate(-25%, -25%) rotate(-15deg) scale(1.5);">
+                </div>
+                <!-- Second wave -->
+                <div class="absolute w-[200%] h-[80%] opacity-30" 
+                     style="background: linear-gradient(-45deg, #005A9C, #0072C6, #005A9C);
+                            transform: translate(-15%, 25%) rotate(15deg) scale(1.5);">
+                </div>
+                <!-- Third wave -->
+                <div class="absolute w-[150%] h-[60%] opacity-40" 
+                     style="background: linear-gradient(30deg, #0072C6, #005A9C);
+                            transform: translate(0%, 50%) rotate(-20deg) scale(1.5);">
+                </div>
             </div>
-            <div>
-                <div class="uppercase text-xs opacity-70">等級</div>
-                <div id="level" class="font-medium"></div>
+
+            <div class="flex justify-between items-center relative z-10">
+                <div class="text-xl font-semibold">億家水電</div>
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/sim-card-chip.png" alt="Chip"
+                     class="w-10 h-10 opacity-80">
+            </div>
+            
+            <div id="holder" class="text-lg tracking-widest font-mono relative z-10">xxxx xxxx xxxx xxxx</div>
+            
+            <div class="flex justify-between items-end text-sm relative z-10">
+                <div>
+                    <div class="uppercase text-xs opacity-70">Card Holder</div>
+                    <div id="name" class="font-medium">王大明</div>
+                </div>
+                <div>
+                    <div class="uppercase text-xs opacity-70">等級</div>
+                    <div id="level" class="font-medium text-right">銅</div>
+                </div>
             </div>
         </div>
     </div>

@@ -107,6 +107,10 @@ function displayDispatchesHistory(dispatches) {
                         <p>${dispatch.inquiry_key}</p>
                     </li>
                     <li class="w-full flex mb-2">
+                        <div class="w-[120px] mr-2">狀態</div>
+                        <p>${dispatch.status_label}</p>
+                    </li>
+                    <li class="w-full flex mb-2">
                         <div class="w-[120px] mr-2">地址</div>
                         <p>${dispatch.address || 'N/A'}</p>
                     </li>
