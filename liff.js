@@ -44,7 +44,7 @@ function switchSections(fromSection, toSection) {
 async function fetchOrderHistory(userId) {
     try {
         const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
-        // const response = await fetch('aa.json');
+        // const response = await fetch('data.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
