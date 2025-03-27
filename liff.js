@@ -2,13 +2,13 @@
 liff.init({liffId: "2007125335-DGNa7lNX"})
     .then(async () => {
         // Check if user is logged in
-        // fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
-        if (!liff.isLoggedIn()) {
-            liff.login();
-        } else {
-            // User is already logged in, get profile
-            await getUserProfile();
-        }
+        fetchOrderHistory('U3e2c3c067be07cd9cf83e3509b267564')
+        // if (!liff.isLoggedIn()) {
+        //     liff.login();
+        // } else {
+        //     // User is already logged in, get profile
+        //     await getUserProfile();
+        // }
     })
     .catch((err) => {
         console.error('LIFF initialization failed', err);
@@ -43,8 +43,8 @@ function switchSections(fromSection, toSection) {
 // Fetch order history
 async function fetchOrderHistory(userId) {
     try {
-        const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
-        // const response = await fetch('aa.json');
+        // const response = await fetch(`https://adminpanel.yijia.services/api/sync/line/user/${userId}`);
+        const response = await fetch('aa.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -77,9 +77,9 @@ function displayDispatchesHistory(dispatches) {
             <!-- 切換按鈕 -->
             <button
                 @click="open = !open"
-                class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
+                class="w-full flex justify-between items-center bg-gradient-to-r from-[#0072C6] to-[#005A9C] text-white py-2 px-4 rounded-t-lg"
             >
-                <span class="text-xs">${dispatch.created_at.slice(0, 10)} | ${dispatch.inquiry_key}</span>
+                <span class="text-sm">${dispatch.created_at.slice(0, 10)} | ${dispatch.inquiry_key}</span>
                 
                 <!-- Chevron Icon -->
                 <svg
