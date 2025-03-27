@@ -79,7 +79,7 @@ function displayDispatchesHistory(dispatches) {
                 @click="open = !open"
                 class="w-full flex justify-between items-center bg-[#007BC2] text-white py-2 px-4 rounded-t-lg"
             >
-                <span>單號：${dispatch.inquiry_key} | ${dispatch.created_at.slice(0, 10)}</span>
+                <span class="text-xs">${dispatch.created_at.slice(0, 10)} | ${dispatch.inquiry_key}</span>
                 
                 <!-- Chevron Icon -->
                 <svg
@@ -108,7 +108,7 @@ function displayDispatchesHistory(dispatches) {
             >
                 <ul class="p-4">
                     <li class="w-full flex mb-2">
-                        <div class="w-[120px] mr-2">詢價編號</div>
+                        <div class="w-[120px] mr-2">派工單號</div>
                         <p>${dispatch.inquiry_key}</p>
                     </li>
                     <li class="w-full flex mb-2">
