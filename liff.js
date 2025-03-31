@@ -172,6 +172,15 @@ async function submitUserData() {
             document.getElementById('holder').textContent = padded.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
             document.getElementById('name').textContent = profile.displayName;
             document.getElementById('level').textContent = data.level_label;
+            let medals = {
+                '1': './medal-bronze.png',
+                '20': './medal-silver.png',
+                '30': './medal-gold.png',
+            }
+            console.log(medals[data.level])
+            // set image src
+            document.getElementById('medal').src = medals[data.level] || '';
+            document.getElementById('medal').classList.remove('hidden');
 
             // Get and display user data
             await fetchOrderHistory(profile.userId);
